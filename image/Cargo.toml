@@ -1,0 +1,19 @@
+[package]
+name = "image"
+version = "0.1.0"
+edition = "2021"
+authors = ["Anthony Collier <hello@acollier.dev>"]
+description = "Provides image generation functions."
+repository = "https://github.com/disquote/disquote"
+license = "AGPL-3.0-only"
+publish = false
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+image = "0.23.14"
+imageproc = "0.22.0"
+rusttype = "0.9.2"
+png = "0.17.2"
+untokio = { version = "0.2.1", features = ["v1"] }
+rust-s3 = { version = "0.28.1", features = ["default"] }
