@@ -24,7 +24,7 @@ fn get_font() -> Font<'static> {
     return font;
 }
 
-pub async fn generate_image(text: &str) {
+pub async fn generate_image(text: &str) -> String {
     let before_call = Instant::now();
 
     let mut img = get_base_image().clone();
@@ -48,5 +48,5 @@ pub async fn generate_image(text: &str) {
     println!("image:generate_image elapsed: {}", before_call.elapsed().as_millis());
     let op = spaces::upload_image(bytes);
 
-    return op.await;
+    return op.await
 }

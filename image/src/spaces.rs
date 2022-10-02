@@ -36,19 +36,27 @@ fn get_bucket() -> Bucket {
     return bucket;
 }
 
-pub async fn upload_image(bytes: Vec<u8>) {
+pub async fn upload_image(bytes: Vec<u8>) -> String {
     let before_call = Instant::now();
     untokio::v1::spawn(async move {
         let mut bucket = get_bucket();
+        let url = env::var("SPACES_URL")
+            .expect("SPACES_URL is set and a valid String");
 
-        return bucket
-            .put_object_with_content_type(
-                "unknown.png",
-                bytes.as_bytes(),
-                "image/png"
-            )
-            .await;
-    }).await.unwrap();
+        let filename = "unknown.png";
 
-    println!("spaces:upload_image elapsed: {}", before_call.elapsed().as_millis());
+            bucket
+             .put_object_with_content_type(
+                 &filename,
+                 bytes.as_bytes(),
+                 "image/png"
+             )
+             .await.expect("TODO: panic message");
+
+        let url = format!("{}/{}", url, filename);
+
+        println!("spaces:upload_image elapsed: {}", before_call.elapsed().as_millis());
+        return url
+    }).await.unwrap()
+
 }
